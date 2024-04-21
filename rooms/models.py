@@ -1,7 +1,8 @@
 from django.db import models
+from common.models import CommonModel
 
 
-class Room(models.Model):
+class Room(CommonModel):
     """숙소 모델 정의"""
 
     class RoomKindChoices(models.TextChoices):
@@ -10,6 +11,13 @@ class Room(models.Model):
         ENTIRE_PLACE = ("entire_place", "Entire Place")
         PRIVATE_ROOM = ("private_room", "Private Room")
         SHARED_ROOM = "shared_room", "Shared Room"
+
+    name = models.CharField(
+        max_length=150,
+        default="",
+        verbose_name="숙소 이름",
+        help_text="숙소 이름을 입력하세요.",
+    )
 
     country = models.CharField(
         max_length=50,
@@ -62,8 +70,21 @@ class Room(models.Model):
         help_text="숙소의 주인을 선택하세요.",
     )
 
+    amenities = models.ManyToManyField(
+        "rooms.Amenity",
+    )
+    category = models.ForeignKey(
+        "categories.Category",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
 
-class Amenity(models.Model):
+    def __str__(self) -> str:
+        return self.name
+
+
+class Amenity(CommonModel):
     """숙소 편의시설 모델 정의"""
 
     name = models.CharField(
@@ -76,4 +97,11 @@ class Amenity(models.Model):
         null=True,
         verbose_name="편의시설 설명",
         help_text="편의시설에 대한 설명을 입력하세요. (선택 사항)",
+        blank=True,
     )
+
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Amenities"

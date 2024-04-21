@@ -1,4 +1,13 @@
 config/__pycache__
-houses/__pycache__
 users/__pycache__
 rooms/__pycache__
+booking/__pycache__
+categproes/__pycache__
+common/__pycache__
+direct_messages/__pycache__
+experiences/__pycache__
+medias/__pycache__
+reviews/__pycache__
+rooms/__pycache__
+users/__pycache__
+whishlists/__pycache__
