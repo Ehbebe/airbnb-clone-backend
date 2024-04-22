@@ -5,13 +5,15 @@ from .models import Room, Amenity
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
 
+    def total_amenities(self, room):
+        return room.amenities.count()
+
     list_display = (
         "name",
         "price",
         "kind",
+        "total_amenities",
         "owner",
-        "created_at",
-        "updated_at",
     )
 
     list_filter = (
@@ -27,7 +29,6 @@ class RoomAdmin(admin.ModelAdmin):
 
 @admin.register(Amenity)
 class AmenityAdmin(admin.ModelAdmin):
-
     list_display = (
         "name",
         "description",
@@ -35,12 +36,6 @@ class AmenityAdmin(admin.ModelAdmin):
         "updated_at",
     )
     readonly_fields = (
-        "created_at",
-        "updated_at",
-    )
-
-    list_filter = (
-        "name",
         "created_at",
         "updated_at",
     )

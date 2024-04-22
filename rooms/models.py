@@ -66,6 +66,7 @@ class Room(CommonModel):
     owner = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
+        related_name="rooms",
         verbose_name="숙소 주인",
         help_text="숙소의 주인을 선택하세요.",
     )
@@ -82,6 +83,10 @@ class Room(CommonModel):
 
     def __str__(self) -> str:
         return self.name
+
+    def total_amenities(self):
+        """방이 가진 편의시설의 수를 반환"""
+        return self.amenities.count()
 
 
 class Amenity(CommonModel):
